@@ -20,13 +20,13 @@ export default () => (
           <div class="mx-auto w-xxl w-auto-xs">
             <div class="px-3">
               <div>
-                <a href="#" class="btn btn-block indigo text-white mb-2">
-                  <i class="fa fa-facebook float-left"></i>
-                  Sign in with Facebook
-                </a>
                 <a href="#" class="btn btn-block red text-white">
-                  <i class="fa fa-google-plus float-left"></i>
-                  Sign in with Google+
+                  <i class="fa fa-youtube float-left"></i>
+                  Sign in with YOUTUBE
+                </a>
+                <a href="#" class="btn btn-block deep-purple text-white">
+                  <i class="fa fa-twitch float-left"></i>
+                  Sign in with TWITCH
                 </a>
               </div>
               <div class="my-3 text-sm">
