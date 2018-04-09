@@ -1,13 +1,10 @@
+import config from '../config'
+
 export default class AuthService {
-  constructor(domain) {
-    this.domain = domain;
-    this.fetch = this.fetch.bind(this);
-    this.login = this.login.bind(this);
-  }
 
   async register(username, password, email, isDonater, isStreamer) {
     // TODO make response validation
-    let res = await this.fetch('/api/v1/auth/register', {
+    let res = await AuthService.fetch('/api/v1/auth/register', {
       method: 'POST',
       body: JSON.stringify({
         username,
@@ -23,7 +20,7 @@ export default class AuthService {
 
   async login(username, password) {
     // TODO make response validation
-    let res = await this.fetch('/api/v1/auth/login', {
+    let res = await AuthService.fetch('/api/v1/auth/login', {
       method: 'POST',
       body: JSON.stringify({
         username,
@@ -34,7 +31,7 @@ export default class AuthService {
   }
 
 
-  loggedIn() {
+  static loggedIn() {
     const token = AuthService.getToken();
     return !!token
   }
@@ -58,11 +55,11 @@ export default class AuthService {
       'Content-Type': 'application/json'
     };
 
-    if (this.loggedIn()) {
-      headers['Authorization'] = 'Bearer ' + this.getToken()
+    if (AuthService.loggedIn()) {
+      headers['Authorization'] = 'Bearer ' + AuthService.getToken()
     }
 
-    let res = await fetch(`${process.env.BACKEND_URL}/${url}`, {
+    let res = await fetch(`${config.BACKEND_URL}/${url}`, {
       headers,
       ...options
     });

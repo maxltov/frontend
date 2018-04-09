@@ -1,14 +1,8 @@
-import Page from '../layouts/main'
-import Link from 'next/link'
+import Page from '../layouts/barebone'
 import React from 'react'
-
+import config from '../config'
 
 class LoginForm extends React.Component{
-  constructor(props) {
-    super(props)
-
-    this
-  }
 
   render () {
     return (
@@ -54,11 +48,11 @@ export default () => (
           <div class="mx-auto w-xxl w-auto-xs">
             <div class="px-3">
               <div>
-                <a href="#" class="btn btn-block red text-white">
+                <a href={`${config.YOUTUBE_OAUTH_URL}`} class="btn btn-block red text-white">
                   <i class="fa fa-youtube float-left"></i>
                   Sign in with YOUTUBE
                 </a>
-                <a href="#" class="btn btn-block deep-purple text-white">
+                <a href={`${config.TWITCH_OAUTH_URL}`} class="btn btn-block deep-purple text-white">
                   <i class="fa fa-twitch float-left"></i>
                   Sign in with TWITCH
                 </a>
