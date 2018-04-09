@@ -2,25 +2,23 @@ import config from '../config'
 
 export default class AuthService {
 
-  async register(username, password, email, isDonater, isStreamer) {
+  static async register(username, password, email) {
     // TODO make response validation
-    let res = await AuthService.fetch('/api/v1/auth/register', {
+    let res = await AuthService.fetch('api/v1/auth/register', {
       method: 'POST',
       body: JSON.stringify({
         username,
         password,
-        email,
-        isDonater,
-        isStreamer
+        email
       })
     });
     AuthService.setToken(res.token)
   }
 
 
-  async login(username, password) {
+  static async login(username, password) {
     // TODO make response validation
-    let res = await AuthService.fetch('/api/v1/auth/login', {
+    let res = await AuthService.fetch('api/v1/auth/login', {
       method: 'POST',
       body: JSON.stringify({
         username,
@@ -49,7 +47,7 @@ export default class AuthService {
     localStorage.removeItem('token');
   }
 
-  async fetch(url, options) {
+  static async fetch(url, options) {
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

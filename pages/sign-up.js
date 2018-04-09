@@ -1,20 +1,50 @@
 import Page from '../layouts/barebone'
 import React from 'react'
 import config from '../config'
+import AuthService from '../utils/AuthService'
+import Router from 'next/router'
 
 class LoginForm extends React.Component{
 
+  constructor(props) {
+    super(props);
+    this.state = {username: '', password: '', email: ''};
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  onUsernameChange(event) {
+    this.setState({username: event.target.value})
+  }
+
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+  }
+
+  onPasswordChange(event) {
+    this.setState({password: event.target.value})
+  }
+
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    await AuthService.register(this.state.username, this.state.password, this.state.email);
+    Router.push('/')
+  }
+
   render () {
     return (
-      <form name="form">
+      <form name="form" onSubmit={this.handleSubmit}>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Username" required/>
+          <input value={this.state.username} onChange={this.onUsernameChange} type="text" class="form-control" placeholder="Username" required/>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" placeholder="Email" required/>
+          <input value={this.state.email} onChange={this.onEmailChange} type="email" class="form-control" placeholder="Email" required/>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" required/>
+          <input value={this.state.password} onChange={this.onPasswordChange} type="password" class="form-control" placeholder="Password" required/>
         </div>
         <div class="mb-3 text-sm">
           <span class="text-muted">By clicking Sign Up, I agree to the</span>
@@ -27,6 +57,7 @@ class LoginForm extends React.Component{
     )
   }
 }
+
 
 export default () => (
   <Page>
@@ -48,11 +79,11 @@ export default () => (
           <div class="mx-auto w-xxl w-auto-xs">
             <div class="px-3">
               <div>
-                <a href={`${config.YOUTUBE_OAUTH_URL}`} class="btn btn-block red text-white">
+                <a href={config.YOUTUBE_OAUTH_URL} class="btn btn-block red text-white">
                   <i class="fa fa-youtube float-left"></i>
                   Sign in with YOUTUBE
                 </a>
-                <a href={`${config.TWITCH_OAUTH_URL}`} class="btn btn-block deep-purple text-white">
+                <a href={config.TWITCH_OAUTH_URL} class="btn btn-block deep-purple text-white">
                   <i class="fa fa-twitch float-left"></i>
                   Sign in with TWITCH
                 </a>
